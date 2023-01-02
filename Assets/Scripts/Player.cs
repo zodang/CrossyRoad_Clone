@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public float boundary = 10.0f;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -15,7 +16,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         Move();
-        
+
         //Add boundary
         if (transform.position.x <= -boundary)
         {
@@ -25,8 +26,6 @@ public class Player : MonoBehaviour
         {
             transform.position = new Vector3(boundary, transform.position.y, transform.position.z);
         }
-
-        
     }
 
     //Move the player
