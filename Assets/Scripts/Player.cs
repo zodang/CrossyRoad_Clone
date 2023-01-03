@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public float jumpDistance = 1.5f;
     public float boundary = 10.0f;
     
     // Start is called before the first frame update
@@ -54,7 +55,7 @@ public class Player : MonoBehaviour
                 transform.eulerAngles = new Vector3(0, 90, 0);
             }
 
-            transform.Translate(Vector3.forward * 2);
+            transform.Translate(Vector3.forward * jumpDistance);
         }
     }
 }
