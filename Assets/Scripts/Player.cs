@@ -21,12 +21,40 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        horizontalInput = Input.GetAxis("Horizontal");
-        verticalInput = Input.GetAxis("Vertical");
-
         Move();
+        Boundary();
 
-        //Add boundary
+    }
+
+    //Move the player
+    void Move()
+    {
+        if (Input.GetKeyDown(KeyCode.UpArrow) | Input.GetKeyDown(KeyCode.DownArrow) | Input.GetKeyDown(KeyCode.LeftArrow) | Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                transform.eulerAngles = new Vector3(0, 0, 0);
+                return;
+            }
+            else if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                transform.eulerAngles = new Vector3(0, -180, 0);
+            }
+            else if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                transform.eulerAngles = new Vector3(0, -90, 0);
+            }
+            else if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                transform.eulerAngles = new Vector3(0, 90, 0);
+            }
+            transform.Translate(Vector3.forward * moveDistance);
+        }
+    }
+
+    //Add boundary
+    void Boundary()
+    {
         if (transform.position.x <= -boundary)
         {
             transform.position = new Vector3(-boundary, transform.position.y, transform.position.z);
@@ -35,41 +63,5 @@ public class Player : MonoBehaviour
         {
             transform.position = new Vector3(boundary, transform.position.y, transform.position.z);
         }
-    }
-
-    //Move the player
-    void Move()
-    {
-        //Move horizontal
-        if (Input.GetKeyDown(KeyCode.UpArrow) | Input.GetKeyDown(KeyCode.DownArrow))
-        {
-
-            if (Input.GetKeyDown(KeyCode.UpArrow))
-            {
-                transform.eulerAngles = new Vector3(0, 0, 0);
-                transform.Translate(Vector3.forward * moveDistance);
-            }
-            else if (Input.GetKeyDown(KeyCode.DownArrow))
-            {
-                transform.eulerAngles = new Vector3(0, -180, 0);
-                transform.Translate(Vector3.forward * moveDistance);
-            }
-
-        }
-        //Move vertical  
-        if (Input.GetKeyDown(KeyCode.LeftArrow) | Input.GetKeyDown(KeyCode.RightArrow))
-
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
-            {
-                transform.eulerAngles = new Vector3(0, -90, 0);
-                transform.Translate(Vector3.forward * moveDistance);
-            }
-            else if (Input.GetKeyDown(KeyCode.RightArrow))
-            {
-                transform.eulerAngles = new Vector3(0, 90, 0);
-                transform.Translate(Vector3.forward * moveDistance);
-            }
-        // playerRb.AddForce(Vector3.forward * verticalInput * Time.deltaTime * speed, ForceMode.Force);
-
     }
 }
