@@ -1,41 +1,50 @@
-using System.Collections;
-using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class SpawnManager : MonoBehaviour
 {
-    public GameObject[] GroundPrefabs;
-    public GameObject[] index;
+    public Transform parentGameObject;
+    public GameObject GroundObject;
+    public GameObject[] groundPrefabs;
     private float posZ = 20;
-    // Start is called before the first frame update
-    void Start()
-    {
 
+    private void Start()
+    {
+        GameManager.restartGame += ResetRoad;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        int randomIndex = Random.Range(0, GroundPrefabs.Length);
-
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+        if (!GameManager.Instance.isGameOver)
         {
-
-            if (GroundPrefabs[randomIndex].name == "Ground_Road2")
+            if (Input.GetKeyDown(KeyCode.UpArrow))
             {
-                posZ = posZ + 1;
+                SpawnRoad();
             }
+        }
+    }
 
-            Instantiate(GroundPrefabs[randomIndex], new Vector3(0, 0, posZ), GroundPrefabs[randomIndex].transform.rotation);
-
-            if (GroundPrefabs[randomIndex].name == "Ground_Road2")
-            {
-                posZ = posZ + 1;
-            }
-
+    private void SpawnRoad()
+    {
+        int randomIndex = Random.Range(0, groundPrefabs.Length);
+        
+        if (groundPrefabs[randomIndex].name == "Ground_Road2")
+        {
+            posZ = posZ + 1;
         }
 
-        
+        GameObject temp = Instantiate(groundPrefabs[randomIndex], new Vector3(0, 0, posZ), groundPrefabs[randomIndex].transform.rotation);
+        temp.transform.SetParent(parentGameObject);
+    }
+    
+    private void ResetRoad()
+    {
+        foreach (Transform child in parentGameObject)
+        {
+            Destroy(child.gameObject);
+        }
 
+        Instantiate(GroundObject, new Vector3(0, 0, 10), Quaternion.identity);
     }
 }

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -9,27 +7,17 @@ public class Player : MonoBehaviour
     private float horizontalInput;
     private float verticalInput;
 
-    private Animator playerAnim;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        playerAnim = GetComponent<Animator>();
-
-    }
-
     // Update is called once per frame
     void Update()
     {
-        Move();
-        Boundary();
-
+        MovePlayer();
+        CheckBoundary();
     }
-
+    
     //Move the player
-    void Move()
+    void MovePlayer()
     {
-        if (Input.GetKeyDown(KeyCode.UpArrow) | Input.GetKeyDown(KeyCode.DownArrow) | Input.GetKeyDown(KeyCode.LeftArrow) | Input.GetKeyDown(KeyCode.RightArrow))
+        if (!GameManager.Instance.isGameOver)
         {
             if (Input.GetKeyDown(KeyCode.UpArrow))
             {
@@ -39,21 +27,23 @@ public class Player : MonoBehaviour
             else if (Input.GetKeyDown(KeyCode.DownArrow))
             {
                 transform.eulerAngles = new Vector3(0, -180, 0);
+                transform.Translate(Vector3.forward * moveDistance);
             }
             else if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
                 transform.eulerAngles = new Vector3(0, -90, 0);
+                transform.Translate(Vector3.forward * moveDistance);
             }
             else if (Input.GetKeyDown(KeyCode.RightArrow))
             {
                 transform.eulerAngles = new Vector3(0, 90, 0);
+                transform.Translate(Vector3.forward * moveDistance);
             }
-            transform.Translate(Vector3.forward * moveDistance);
         }
     }
 
     //Add boundary
-    void Boundary()
+    void CheckBoundary()
     {
         if (transform.position.x <= -boundary)
         {

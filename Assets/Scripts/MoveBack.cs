@@ -15,10 +15,12 @@ public class MoveBack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+        if(!GameManager.Instance.isGameOver)
         {
-            transform.Translate(Vector3.back * PlayerScript.moveDistance);
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                transform.Translate(Vector3.back * PlayerScript.moveDistance);
+            }
         }
-        
     }
 }
