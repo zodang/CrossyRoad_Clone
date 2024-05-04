@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -31,11 +30,10 @@ public class SpawnManager : MonoBehaviour
         
         if (groundPrefabs[randomIndex].name == "Ground_Road2")
         {
-            posZ = posZ + 1;
+            posZ++;
         }
 
-        GameObject temp = Instantiate(groundPrefabs[randomIndex], new Vector3(0, 0, posZ), groundPrefabs[randomIndex].transform.rotation);
-        temp.transform.SetParent(parentGameObject);
+        Instantiate(groundPrefabs[randomIndex], new Vector3(0, 0, posZ), groundPrefabs[randomIndex].transform.rotation, parentGameObject);
     }
     
     private void ResetRoad()
@@ -45,6 +43,8 @@ public class SpawnManager : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        Instantiate(GroundObject, new Vector3(0, 0, 10), Quaternion.identity);
+        Instantiate(GroundObject, Vector3.forward * 10, Quaternion.identity);
     }
+    // 1. for로 사용해보기
+    // 2. 이름 변경해보기
 }

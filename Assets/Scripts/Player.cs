@@ -7,7 +7,12 @@ public class Player : MonoBehaviour
     private float horizontalInput;
     private float verticalInput;
 
-    // Update is called once per frame
+
+    private void Start()
+    {
+        GameManager.restartGame += ResetPlayer;
+    }
+
     void Update()
     {
         MovePlayer();
@@ -53,5 +58,11 @@ public class Player : MonoBehaviour
         {
             transform.position = new Vector3(boundary, transform.position.y, transform.position.z);
         }
+    }
+
+    private void ResetPlayer()
+    {
+        gameObject.transform.position = Vector3.up * 0.25f;
+        gameObject.transform.rotation = Quaternion.identity;
     }
 }

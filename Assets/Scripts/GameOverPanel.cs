@@ -9,7 +9,7 @@ public class GameOverPanel : MonoBehaviour
         gameObject.SetActive(false);
     
         // 종료 패널 활성화/비활성화 메서드 할당
-        GameManager.endGame += ActiveGameOverPanel;
+        GameManager.OnEndGame += ActiveGameOverPanel;
         GameManager.restartGame += InActiveGameOverPanel;
     }
 
